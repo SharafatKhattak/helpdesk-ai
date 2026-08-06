@@ -1,0 +1,7 @@
+# Phase 1 — parsing + chunking. Embedding/vector-db/Gemini deps added in later phases.
+pdfplumber
+python-docx
+beautifulsoup4
+langchain-text-splitters
+pydantic
+pytest
