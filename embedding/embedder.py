@@ -28,3 +28,4 @@ def embed_texts(texts: List[str]) -> List[List[float]]:
 
 
 def embed_query(query: str) -> List[float]:
+    return embed_texts([query])[0]
