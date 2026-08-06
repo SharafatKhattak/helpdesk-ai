@@ -1,18 +1,30 @@
-"""Embedding interface for converting text into vector representations."""
+"""
+Wraps the local multilingual embedding model. This exact model must be
+used for BOTH indexing (this phase) and query-time retrieval (Phase 3) —
+mixing embedding models produces incompatible vector spaces and silently
+broken search. Don't swap EMBEDDING_MODEL_NAME later without re-indexing
+every document from scratch.
+"""
+from typing import List
 
-from typing import Iterable, List
+from sentence_transformers import SentenceTransformer
+
+from config import EMBEDDING_MODEL_NAME
+
+_model = None  # lazy-loaded singleton so we don't reload the model on every call
 
 
-class Embedder:
-    """Simple placeholder embedder implementation."""
+def get_embedder() -> SentenceTransformer:
+    global _model
+    if _model is None:
+        _model = SentenceTransformer(EMBEDDING_MODEL_NAME)
+    return _model
 
-    def __init__(self, model_name: str = "default") -> None:
-        self.model_name = model_name
 
-    def embed_texts(self, texts: Iterable[str]) -> List[List[float]]:
-        """Return embeddings for the provided texts.
+def embed_texts(texts: List[str]) -> List[List[float]]:
+    model = get_embedder()
+    embeddings = model.encode(texts, normalize_embeddings=True, show_progress_bar=False)
+    return embeddings.tolist()
 
-        This stub intentionally raises a clear error until a real embedding
-        backend is wired in.
-        """
-        raise NotImplementedError("Embedding backend is not configured yet.")
+
+def embed_query(query: str) -> List[float]:
