@@ -1,4 +1,8 @@
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_RAW_DIR = BASE_DIR / "data" / "raw"
@@ -16,3 +20,7 @@ EMBEDDING_MODEL_NAME = "paraphrase-multilingual-MiniLM-L12-v2"
 CHROMA_DIR = BASE_DIR / "data" / "chroma_db"
 CHROMA_COLLECTION_NAME = "support_docs"
 DEFAULT_TOP_K = 5
+
+# Gemini API
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_MODEL = "gemini-3.6-flash"  # Latest available model

@@ -7,3 +7,5 @@ pydantic
 pytest
 sentence-transformers
 chromadb
+google-genai
+python-dotenv
