@@ -56,3 +56,10 @@ def search(
         n_results=top_k,
         where=where,
     )
+
+def delete_by_doc_id(doc_id: str) -> None:
+    """Removes all existing chunks for a doc_id before re-indexing it,
+    so re-running ingestion on an updated document replaces its old
+    chunks instead of duplicating them."""
+    collection = get_collection()
+    collection.delete(where={"doc_id": doc_id})
