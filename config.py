@@ -13,14 +13,14 @@ DATA_PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 
 
 # Chunking
-MAX_CHUNK_TOKENS = 500        # rough token budget per chunk before sub-splitting
+MAX_CHUNK_TOKENS = 200        # Smaller chunks for better retrieval accuracy
 CHUNK_OVERLAP_TOKENS = 50
 
-EMBEDDING_MODEL_NAME = "paraphrase-multilingual-MiniLM-L12-v2"
+EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"  # Better semantic understanding
 CHROMA_DIR = BASE_DIR / "data" / "chroma_db"
 CHROMA_COLLECTION_NAME = "support_docs"
-DEFAULT_TOP_K = 5
+DEFAULT_TOP_K = 10  # Increased for better recall
 
 # Gemini API
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-GEMINI_MODEL = "gemini-3.6-flash"  # Latest available model
+GEMINI_MODEL = "gemini-3.5-flash"  # Working model with current API key

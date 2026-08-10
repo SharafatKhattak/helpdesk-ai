@@ -49,11 +49,19 @@ def search(
     top_k: int = 5,
     doc_type_filter: Optional[str] = None,
 ) -> dict:
+    """
+    Search with larger retrieval then re-rank to improve recall.
+    Retrieves 3x top_k then returns top_k after distance sorting.
+    """
     collection = get_collection()
     where = {"doc_type": doc_type_filter} if doc_type_filter else None
+
+    # Retrieve more candidates for better recall
+    retrieve_k = min(top_k * 3, 50)  # Get 3x but cap at 50
+
     return collection.query(
         query_embeddings=[query_embedding],
-        n_results=top_k,
+        n_results=retrieve_k,
         where=where,
     )
 

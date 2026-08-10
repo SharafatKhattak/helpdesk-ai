@@ -11,10 +11,25 @@ source venv/Scripts/activate  # Windows Git Bash
 venv\Scripts\activate.bat     # Windows CMD
 ```
 
-### 2. Start the AI Chatbot (Gemini RAG)
+### 2. **Fix API Key First! (IMPORTANT)**
+
+Check your API key:
 ```bash
-python chatbot.py
+python check_api_key.py
 ```
+
+If invalid, get a valid key from https://aistudio.google.com/apikey and update `.env`
+
+### 3. Start the GUI Chatbot (Qt Interface)
+```bash
+python gui_chatbot.py
+```
+
+**Features:**
+- Modern GUI with chat bubbles
+- Real-time source citations panel  
+- Non-blocking queries (threaded)
+- Built-in API key validation
 
 **Example queries:**
 - "What are the seller commission fees?"
